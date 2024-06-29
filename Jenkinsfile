@@ -14,6 +14,11 @@ pipeline {
             }
         }
 
+        stage('Unit Tests'){
+            steps {
+                echo 'ci'
+            }
+
         stage('Release'){
             steps {
                 echo 'ci'
