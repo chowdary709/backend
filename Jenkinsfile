@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'workstation'
     }
+    options {
+        ansiColor('xterm')
+    }
 
     stages {
         stage('Download dependencies') {
