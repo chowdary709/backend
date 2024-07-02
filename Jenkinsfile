@@ -1,27 +1,34 @@
 pipeline {
-    agent { label 'workstation' }
+    agent {
+        label 'workstation'
+    }
 
     stages {
-        stage('Download dependencies'){
+        stage('Download dependencies') {
             steps {
                 sh 'npm install'
             }
         }
 
-        stage('Code Quality'){
+        stage('Code Quality') {
             steps {
-                sh 'sonar-scanner -Dsonar.host.url=https://sonar.chaitu.net -Dsonar.login=admin -Dsonar.password=@123Chaitu -Dsonar.projectKey=backend -Dsonar.qualitygate.wait=true'
+                script {
+                    sh 'sonar-scanner -Dsonar.host.url=https://sonar.chaitu.net -Dsonar.login=admin -Dsonar.password=@123Chaitu -Dsonar.projectKey=backend -Dsonar.qualitygate.wait=true'
+                }
             }
         }
 
-        stage('Unit Tests'){
+        stage('Unit Tests') {
             steps {
-                echo 'ci'
+                echo 'Run your unit tests here'
+                // Example: sh 'npm test'
             }
+        }
 
-        stage('Release'){
+        stage('Release') {
             steps {
-                echo 'ci'
+                echo 'Perform release steps here'
+                // Example: sh 'npm publish'
             }
         }
     }
