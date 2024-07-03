@@ -36,6 +36,9 @@ pipeline {
         }
 
         stage('Release') {
+            when {
+                expression { env.TAG_NAME ==~ ".*" } // any tag name it should be run
+            }
             steps {
                 echo 'Perform release steps here'
                 // Example: sh 'npm publish'
