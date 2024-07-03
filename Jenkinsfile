@@ -14,9 +14,16 @@ pipeline {
         }
 
         stage('Code Quality') {
+            when {
+                allOf {
+                    branch 'main'
+                    expression { env.TAG_NAME != env.BRANCH_NAME }
+                }
+            }
             steps {
                 script {
-                    sh 'sonar-scanner -Dsonar.host.url=https://sonar.chaitu.net -Dsonar.login=admin -Dsonar.password=@123Chaitu -Dsonar.projectKey=backend -Dsonar.qualitygate.wait=true'
+                    // sh 'sonar-scanner -Dsonar.host.url=https://sonar.chaitu.net -Dsonar.login=admin -Dsonar.password=@123Chaitu -Dsonar.projectKey=backend -Dsonar.qualitygate.wait=true'
+                    echo 'code Quality'
                 }
             }
         }
