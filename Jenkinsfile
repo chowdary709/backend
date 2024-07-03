@@ -29,6 +29,9 @@ pipeline {
         }
 
         stage('Unit Tests') {
+            when {
+                    branch 'main'
+            }
             steps {
                 echo 'Run your unit tests here'
                 // Example: sh 'npm test'
