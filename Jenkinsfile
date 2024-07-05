@@ -47,7 +47,8 @@ pipeline {
             steps {
                 sh 'zip -r backend-${TAG_NAME}.zip node_modules schema DbConfig.js package.json index.js TransactionService.js'
                 //sh 'curl  -L -v -u admin:@123Chaitu --upload-file backend-${TAG_NAME}.zip  https://nexus.chaitu.net/repository/backend/backend-${TAG_NAME}.zip'
-                sh 'curl -sSf -u "admin:@123Chaitu" -X PUT -T backend-${TAG_NAME}.zip "https://nexus.chaitu.net/repository/backend/backend-${TAG_NAME}.zip"'
+                sh 'curl  -L -v -u admin:admin123 --upload-file backend-${TAG_NAME}.zip  http://nexus.chowdary.cloud:8081/repository/backend/backend-${TAG_NAME}.zip'
+
             }
         }
     }
