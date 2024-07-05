@@ -30,11 +30,13 @@ pipeline {
 
         stage('Unit Tests') {
             when {
+                allOf {
                     branch 'main'
+                    expression { env.TAG_NAME != env.BRANCH_NAME }
+                }
             }
             steps {
                 echo 'Run your unit tests here'
-                // Example: sh 'npm test'
             }
         }
 
@@ -43,8 +45,8 @@ pipeline {
                 expression { env.TAG_NAME ==~ ".*" } // any tag name it should be run
             }
             steps {
-                echo 'Perform release steps here'
-                // Example: sh 'npm publish'
+                sh 'zip -r backend-${TAG_NAME}.zip node_modules schema DbConfig.js package.json index.js TransactionService.js'
+                sh 'curl  -L -v -u admin:@123Chaitu --upload-file backend-${TAG_NAME}.zip  https://nexus.chaitu.net/repository/backend/backend-${TAG_NAME}.zip'
             }
         }
     }
